@@ -26,7 +26,7 @@ function App() {
     <div>
      <Header news={news}></Header>
      <Trending tradingNews={trendingNews}></Trending>
-     <LatestNews></LatestNews>
+     <LatestNews news={news}></LatestNews>
     </div>
   );
 }
