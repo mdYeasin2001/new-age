@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/Header/Header';
+import { useEffect, useState } from 'react';
+import Trending from './components/Trending/Trending';
+import LatestNews from './components/LatestNews/LatestNews';
 
 function App() {
+  const [news, setNews] = useState([]);
+  
+  const [trendingNews, setTrendingNews] = useState([]);
+  useEffect(() => {
+    fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=e51a5085b6314f16878112af9f4aea06')
+    .then(res => res.json())
+    .then(data => setNews(data.articles))
+    .catch(error => error);
+  },[]);
+  useEffect(() => {
+    fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=e51a5085b6314f16878112af9f4aea06')
+    .then(res => res.json())
+    .then(data => setTrendingNews(data.articles))
+    .catch(error => error);
+  },[]);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+     <Header news={news}></Header>
+     <Trending tradingNews={trendingNews}></Trending>
+     <LatestNews></LatestNews>
     </div>
   );
 }
